@@ -313,8 +313,17 @@
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
-    <Content Include="Views\home.cshtml" />
+    <Content Include="Views\Partials\navigation.cshtml" />
     <Content Include="Views\master.cshtml" />
+    <Content Include="Views\home.cshtml" />
+    <Content Include="Views\Partials\footer.cshtml" />
+    <Content Include="Views\Partials\latestArticles.cshtml" />
+    <Content Include="Views\article.cshtml" />
+    <Content Include="Views\articleList.cshtml" />
+    <Content Include="Views\content.cshtml" />
+    <Content Include="Views\contact.cshtml" />
+    <Content Include="Views\search.cshtml" />
+    <Content Include="Views\Partials\pageHeader.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
