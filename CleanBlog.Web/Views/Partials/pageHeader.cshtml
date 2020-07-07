@@ -1,14 +1,45 @@
 ﻿@inherits UmbracoViewPage
+@{ 
+    var title = Model.HasValue("title") ? Model.Value("title") : Model.Name;
+    var subtitle = Model.HasValue("subtitle") ? Model.Value<string>("subtitle") : "";
+    var image = Model.Value<IPublishedContent>("mainImage", fallback: Fallback.ToAncestors);
+    var authorName = Model.HasProperty("authorName") && Model.HasValue("authorName") ? Model.Value<string>("authorName") : "";
+    var articleDate = Model.HasProperty("articleDate") && Model.HasValue("articleDate") ? Model.Value<DateTime>("articleDate") : DateTime.MinValue;
+    var hasAuthorDetails = !string.IsNullOrWhiteSpace(authorName) || articleDate != DateTime.MinValue;
+    var imageUrl = image != null ? image.GetCropUrl(1903, 532) : "";
+}
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('/img/home-bg.jpg')">
+<header class="masthead" style=" @(!string.IsNullOrEmpty(imageUrl) ? "background-image: url('"+ imageUrl +"')" : null)">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
-                    <h1>@Model.Name</h1>
-                    <span class="subheading">Have questions? I have answers.</span>
+                    <h1>@title</h1>
+                    @if (!string.IsNullOrWhiteSpace(subtitle))
+                    {
+                        if (hasAuthorDetails)
+                        {
+                            <h2 class="subheading">@subtitle</h2>
+                        }
+                        else
+                        {
+                            <span class="subheading">@subtitle</span>
+                        }
+                    }
+                    @if (hasAuthorDetails)
+                    {
+                        <span class="meta">
+                            Posted
+                            @if (!string.IsNullOrEmpty(authorName))
+                            {
+                                @Html.Raw("by ") @authorName
+                            }
+                            on @articleDate.ToString("MMMM dd, yyyy")
+                        </span>
+                    }
+
                 </div>
             </div>
         </div>
