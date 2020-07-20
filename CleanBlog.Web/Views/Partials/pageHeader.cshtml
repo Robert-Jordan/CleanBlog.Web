@@ -6,11 +6,13 @@
     var authorName = Model.HasProperty("authorName") && Model.HasValue("authorName") ? Model.Value<string>("authorName") : "";
     var articleDate = Model.HasProperty("articleDate") && Model.HasValue("articleDate") ? Model.Value<DateTime>("articleDate") : DateTime.MinValue;
     var hasAuthorDetails = !string.IsNullOrWhiteSpace(authorName) || articleDate != DateTime.MinValue;
-    var imageUrl = image != null ? image.GetCropUrl(1903, 532) : "";
+    var smallImageUrl = image.GetCropUrl("PageHeader.Tiny");
+    var imageUrl = image != null ? image.GetCropUrl("PageHeader.Large") : "";
 }
 
 <!-- Page Header -->
-<header class="masthead" style=" @(!string.IsNullOrEmpty(imageUrl) ? "background-image: url('"+ imageUrl +"')" : null)">
+<header class="masthead lazyload" data-bg="@(!string.IsNullOrEmpty(imageUrl) ? imageUrl : null)" 
+        style="@(!string.IsNullOrEmpty(smallImageUrl) ? "background-image: url('"+ smallImageUrl +"')" : null)">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
